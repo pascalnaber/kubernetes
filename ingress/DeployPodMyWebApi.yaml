@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mywebapi-deployment
+spec:
+  replicas: 3  
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: mywebapi
+    spec:
+      containers:
+      - name: mywebapi
+        image: pnk8sdemocrwe.azurecr.io/myservice/mywebapi:1        
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always   
